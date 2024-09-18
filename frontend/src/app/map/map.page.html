@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Map Page</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="h-full min-h-full">
+    <ion-row class="h-full min-h-full">
+      <ion-col size="12" class="z-10 relative flex min-h-[700px] h-[70%] lg:h-full">
+        <section class="w-full h-full relative">
+          <app-map-search-field
+            (selectedLocation)="mapLeaflet.setMapCenter($event)"
+          ></app-map-search-field>
+          <app-map-leaflet
+            #mapLeaflet
+            [visibleMarkerType]="visibleType"
+          ></app-map-leaflet>
+          <app-map-markers-legend
+            (toggledMarker)="setVisibleMarkerType($event)"
+          ></app-map-markers-legend>
+        </section>
+
+        <!-- Side section for vertical property list -->
+        <div class="hidden lg:block w-[400px] overflow-y-auto">
+          <app-properties-list
+            class="properties-list"
+            [singleCol]="true"
+            [limit]="10"
+          ></app-properties-list>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" class="ion-hide-lg-up">
+        <div class="w-full mb-[60px]">
+          <app-properties-list [horizontalSlide]="true"></app-properties-list>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" class="ion-no-padding ion-hide-lg-up">
+        <app-footer></app-footer>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
